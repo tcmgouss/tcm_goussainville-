@@ -1,13 +1,17 @@
-<!DOCTYPE html><html lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#061b12">
-<title>TCMG Goussainville</title><style>
+<meta name="theme-color" content="#0757a5">
+
+<title>TCMG Goussainville</title>
+
+<style>
 *{
-  box-sizing:border-box;
   margin:0;
   padding:0;
+  box-sizing:border-box;
 }
 
 html{
@@ -16,478 +20,361 @@ html{
 
 body{
   font-family:Arial,Helvetica,sans-serif;
-  min-height:100vh;
-  overflow-x:hidden;
   color:white;
-  background:#061b12;
+  background:#061a2b;
+  overflow-x:hidden;
 }
 
-/* =====================================================
-   INTRODUCTION
-===================================================== */
+/* =========================
+   FOND
+========================= */
 
-.intro-screen{
+.background{
+  position:fixed;
+  inset:0;
+  z-index:-5;
+  background:
+    radial-gradient(circle at 20% 20%,#1266ad 0%,transparent 35%),
+    radial-gradient(circle at 80% 80%,#087b43 0%,transparent 35%),
+    linear-gradient(135deg,#061a2b,#073d65 55%,#06251b);
+}
+
+.light{
+  position:fixed;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  background:rgba(40,160,255,.18);
+  filter:blur(70px);
+  animation:moveLight 8s ease-in-out infinite alternate;
+}
+
+.light.one{
+  top:5%;
+  left:-80px;
+}
+
+.light.two{
+  bottom:0;
+  right:-80px;
+  background:rgba(30,190,100,.16);
+  animation-delay:2s;
+}
+
+@keyframes moveLight{
+  from{transform:translate(0,0) scale(.8)}
+  to{transform:translate(100px,80px) scale(1.2)}
+}
+
+/* =========================
+   INTRO
+========================= */
+
+.intro{
   position:fixed;
   inset:0;
   z-index:9999;
-  background:
-    radial-gradient(circle at 50% 45%,#123f2b 0%,#061b12 45%,#020a06 100%);
   display:flex;
   align-items:center;
   justify-content:center;
-  overflow:hidden;
-  animation:introDisappear 1s ease 4.3s forwards;
+  flex-direction:column;
+  background:
+    radial-gradient(circle,#0c4e83,#061a2b 65%);
+  animation:hideIntro 1s ease 3.8s forwards;
 }
 
-/* lumière derrière le logo */
-
-.intro-glow{
-  position:absolute;
-  width:320px;
-  height:320px;
-  border-radius:50%;
-  background:rgba(215,232,91,.12);
-  filter:blur(50px);
-  animation:glowPulse 2s ease-in-out infinite;
-}
-
-/* logo */
-
-.intro-logo{
-  position:relative;
-  z-index:3;
+.intro img{
   width:145px;
   height:145px;
   object-fit:contain;
   background:white;
-  padding:9px;
+  padding:8px;
   border-radius:50%;
   box-shadow:
     0 0 0 2px rgba(255,255,255,.2),
-    0 0 50px rgba(218,234,90,.3),
-    0 25px 70px rgba(0,0,0,.6);
-  animation:
-    logoIntro 1.1s cubic-bezier(.17,.67,.3,1.3) forwards,
-    logoFloat 2s ease-in-out 1.2s infinite;
+    0 0 60px rgba(60,180,255,.45);
+  animation:introLogo 1.2s cubic-bezier(.2,.8,.3,1.3);
 }
 
-/* texte intro */
-
-.intro-text{
-  position:absolute;
-  top:calc(50% + 105px);
-  text-align:center;
-  z-index:3;
-  opacity:0;
-  animation:textIntro 1s ease .9s forwards;
-}
-
-.intro-text h1{
+.intro h1{
+  margin-top:25px;
   font-size:42px;
-  font-weight:900;
-  letter-spacing:5px;
+  letter-spacing:6px;
+  opacity:0;
+  animation:fadeUp .8s ease .7s forwards;
 }
 
-.intro-text p{
-  margin-top:8px;
-  font-size:12px;
+.intro p{
+  margin-top:7px;
+  color:#66baff;
   letter-spacing:4px;
   text-transform:uppercase;
-  color:#d8e85b;
+  font-size:12px;
+  opacity:0;
+  animation:fadeUp .8s ease 1s forwards;
 }
-
-/* balle d'intro */
 
 .intro-ball{
   position:absolute;
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  background:
-    radial-gradient(circle at 30% 25%,#ffffbd,#dce94b 55%,#8da714);
-  box-shadow:
-    0 0 18px rgba(225,240,85,.6),
-    0 8px 18px rgba(0,0,0,.5);
-  z-index:5;
-  left:-50px;
-  top:38%;
-  animation:introBall 1.5s cubic-bezier(.25,.8,.3,1) .8s forwards;
-}
-
-.intro-ball:after{
-  content:"";
-  position:absolute;
-  width:14px;
+  width:25px;
   height:25px;
-  left:7px;
-  top:2px;
-  border-right:2px solid rgba(255,255,255,.8);
   border-radius:50%;
-  transform:rotate(25deg);
+  background:#dce94b;
+  left:-30px;
+  top:45%;
+  box-shadow:0 0 25px #dce94b;
+  animation:ballIntro 1.5s ease .5s forwards;
 }
 
-/* lignes lumineuses */
-
-.intro-line{
-  position:absolute;
-  height:2px;
-  width:100%;
-  left:-100%;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(220,235,80,.7),
-    transparent
-  );
-  animation:introLine 1.1s ease .8s forwards;
+@keyframes introLogo{
+  0%{
+    opacity:0;
+    transform:scale(.2) rotate(-30deg);
+  }
+  70%{
+    transform:scale(1.12) rotate(5deg);
+  }
+  100%{
+    opacity:1;
+    transform:scale(1) rotate(0);
+  }
 }
 
-.intro-line.one{
-  top:38%;
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
-.intro-line.two{
-  top:62%;
-  animation-delay:1.1s;
+@keyframes ballIntro{
+  0%{left:-30px}
+  50%{
+    left:50%;
+    transform:translateY(-100px) rotate(250deg);
+  }
+  100%{
+    left:110%;
+    transform:translateY(50px) rotate(600deg);
+  }
 }
 
-/* =====================================================
+@keyframes hideIntro{
+  to{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+  }
+}
+
+/* =========================
    TERRAIN
-===================================================== */
+========================= */
 
-.court-background{
+.court{
   position:fixed;
-  inset:0;
-  z-index:0;
-  overflow:hidden;
-  background:
-    radial-gradient(
-      circle at 50% 45%,
-      rgba(32,128,72,.8),
-      rgba(4,29,19,.98) 75%
-    );
-}
-
-.tennis-court{
-  position:absolute;
-  width:145%;
-  height:82%;
-  left:-22.5%;
-  top:12%;
-  transform:perspective(650px) rotateX(58deg);
-  transform-origin:center center;
-
-  background:#157447;
-
-  border:5px solid rgba(255,255,255,.7);
-
+  z-index:-2;
+  width:150%;
+  height:75%;
+  left:-25%;
+  top:25%;
+  transform:perspective(700px) rotateX(58deg);
+  background:#087844;
+  border:4px solid rgba(255,255,255,.7);
   box-shadow:
-    0 0 0 12px rgba(7,50,29,.8),
-    0 0 80px rgba(0,0,0,.6);
+    0 0 0 12px rgba(3,45,28,.7),
+    0 0 100px rgba(0,0,0,.7);
 }
 
-.court-line{
+.line{
   position:absolute;
   background:rgba(255,255,255,.85);
 }
 
-.center-line{
+.center{
   width:4px;
   height:100%;
   left:50%;
 }
 
-.service-left{
+.service1{
   width:4px;
   height:42%;
   left:30%;
   top:29%;
 }
 
-.service-right{
+.service2{
   width:4px;
   height:42%;
   right:30%;
   top:29%;
 }
 
-.baseline-top{
+.base1{
   width:100%;
   height:4px;
-  left:0;
   top:0;
 }
 
-.baseline-bottom{
+.base2{
   width:100%;
   height:4px;
-  left:0;
   bottom:0;
 }
 
-.service-top{
+.service3{
   width:100%;
   height:4px;
-  left:0;
   top:29%;
 }
 
-.service-bottom{
+.service4{
   width:100%;
   height:4px;
-  left:0;
   top:71%;
 }
 
-/* filet */
-
 .net{
   position:absolute;
-  width:100%;
-  height:16px;
   top:50%;
-  left:0;
-
-  background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(255,255,255,.7) 0,
-      rgba(255,255,255,.7) 2px,
-      transparent 2px,
-      transparent 8px
-    );
-
-  border-top:3px solid white;
-  border-bottom:3px solid rgba(255,255,255,.5);
-
-  box-shadow:0 4px 8px rgba(0,0,0,.5);
-}
-
-.net:before,
-.net:after{
-  content:"";
-  position:absolute;
-  width:9px;
-  height:130px;
-  top:-55px;
-  background:#e9e9e9;
-  border-radius:5px;
-}
-
-.net:before{
-  left:-8px;
-}
-
-.net:after{
-  right:-8px;
-}
-
-.court-overlay{
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(2,13,8,.42),
-      rgba(2,18,11,.55)
-    );
-}
-
-/* balle principale */
-
-.bouncing-ball{
-  position:absolute;
-  width:38px;
-  height:38px;
-  left:50%;
-  top:43%;
-  border-radius:50%;
-
-  background:
-    radial-gradient(
-      circle at 30% 25%,
-      #faffaa,
-      #dce94b 55%,
-      #9dbb16 100%
-    );
-
-  box-shadow:
-    0 8px 15px rgba(0,0,0,.35),
-    0 0 15px rgba(230,245,80,.35);
-
-  z-index:4;
-
-  animation:bounce 2.1s infinite ease-in-out;
-}
-
-.bouncing-ball:before{
-  content:"";
-  position:absolute;
-  width:18px;
-  height:32px;
-  left:8px;
-  top:3px;
-  border-right:3px solid rgba(255,255,255,.8);
-  border-radius:50%;
-  transform:rotate(25deg);
-}
-
-@keyframes bounce{
-  0%{
-    transform:translate(-50%,-180px) rotate(0deg);
-  }
-
-  45%{
-    transform:translate(-50%,70px) rotate(220deg);
-  }
-
-  55%{
-    transform:translate(-50%,70px) rotate(270deg);
-  }
-
-  100%{
-    transform:translate(-50%,-180px) rotate(360deg);
-  }
-}
-
-/* =====================================================
-   CONTENU
-===================================================== */
-
-.content{
-  position:relative;
-  z-index:10;
   width:100%;
-  max-width:540px;
+  height:12px;
+  background:repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,.65) 0,
+    rgba(255,255,255,.65) 2px,
+    transparent 2px,
+    transparent 8px
+  );
+  border-top:3px solid white;
+}
+
+/* =========================
+   CONTENU
+========================= */
+
+.container{
+  width:100%;
+  max-width:620px;
   margin:auto;
-  padding:35px 20px 50px;
+  padding:45px 20px 50px;
 }
 
 /* logo */
 
-.club-logo{
+.logo{
   width:105px;
   height:105px;
-  object-fit:contain;
   display:block;
-  margin:0 auto 18px;
+  margin:0 auto 20px;
+  object-fit:contain;
   background:white;
   padding:7px;
   border-radius:50%;
-
-  box-shadow:
-    0 15px 40px rgba(0,0,0,.45);
-
-  animation:contentAppear .8s ease 4.4s both;
+  box-shadow:0 15px 45px rgba(0,0,0,.4);
+  animation:fadeUp .8s ease 4s both;
 }
 
 /* titre */
 
-.header{
+header{
   text-align:center;
-  margin-bottom:28px;
-  animation:contentAppear .8s ease 4.5s both;
+  animation:fadeUp .8s ease 4.1s both;
 }
 
-.header small{
-  display:block;
-  font-size:13px;
-  letter-spacing:4px;
+header small{
   text-transform:uppercase;
-  color:#b8c9bd;
-  margin-bottom:8px;
+  letter-spacing:4px;
+  font-size:12px;
+  color:#a9c7d9;
 }
 
-.header h1{
-  font-size:45px;
-  line-height:.95;
-  letter-spacing:-2px;
+header h1{
+  margin-top:8px;
+  font-size:52px;
   font-weight:900;
-  text-shadow:0 4px 20px rgba(0,0,0,.5);
+  letter-spacing:-2px;
 }
 
-.header h1 span{
+header h1 span{
   display:block;
-  color:#d8e85b;
-  font-size:27px;
-  margin-top:10px;
+  font-size:28px;
   letter-spacing:1px;
-}
-
-.header p{
-  margin-top:13px;
-  font-size:14px;
-  color:#d3ddd7;
-}
-
-/* intro carte */
-
-.intro-card{
-  padding:18px 20px;
-  margin-bottom:15px;
-  text-align:center;
-  border-radius:22px;
-  background:rgba(5,28,17,.72);
-  border:1px solid rgba(255,255,255,.15);
-  backdrop-filter:blur(12px);
-  box-shadow:0 15px 35px rgba(0,0,0,.25);
-
-  animation:contentAppear .8s ease 4.6s both;
-}
-
-.intro-card strong{
-  font-size:17px;
-}
-
-.intro-card p{
-  color:#b9c8bf;
-  font-size:13px;
-  line-height:1.5;
+  color:#66baff;
   margin-top:5px;
 }
 
-/* =====================================================
+header p{
+  margin-top:12px;
+  color:#d1dde5;
+  font-size:14px;
+}
+
+/* carte bienvenue */
+
+.welcome{
+  margin-top:25px;
+  padding:20px;
+  text-align:center;
+  border-radius:22px;
+  background:rgba(4,27,45,.72);
+  border:1px solid rgba(255,255,255,.14);
+  backdrop-filter:blur(15px);
+  box-shadow:0 15px 40px rgba(0,0,0,.25);
+  animation:fadeUp .8s ease 4.2s both;
+}
+
+.welcome strong{
+  font-size:17px;
+}
+
+.welcome p{
+  margin-top:7px;
+  color:#aebfc9;
+  font-size:13px;
+  line-height:1.5;
+}
+
+/* =========================
    BOUTONS
-===================================================== */
+========================= */
 
 .links{
   display:grid;
   gap:13px;
+  margin-top:16px;
 }
 
 .btn{
-  position:relative;
   display:flex;
   align-items:center;
   gap:15px;
   min-height:72px;
   padding:12px 16px;
-
-  color:#17221b;
+  color:#172532;
+  background:#f7f8f5;
   text-decoration:none;
-  background:#f5f0e3;
-
-  border-radius:19px;
-
-  box-shadow:
-    0 12px 28px rgba(0,0,0,.28);
-
-  transition:
-    transform .25s ease,
-    box-shadow .25s ease;
-
-  animation:contentAppear .7s both;
+  border-radius:20px;
+  box-shadow:0 12px 30px rgba(0,0,0,.28);
+  transition:.3s;
+  opacity:0;
+  animation:fadeUp .7s ease forwards;
 }
 
-.btn:nth-child(1){animation-delay:4.7s}
-.btn:nth-child(2){animation-delay:4.8s}
-.btn:nth-child(3){animation-delay:4.9s}
-.btn:nth-child(4){animation-delay:5s}
-.btn:nth-child(5){animation-delay:5.1s}
+.btn:nth-child(1){animation-delay:4.3s}
+.btn:nth-child(2){animation-delay:4.4s}
+.btn:nth-child(3){animation-delay:4.5s}
+.btn:nth-child(4){animation-delay:4.6s}
+.btn:nth-child(5){animation-delay:4.7s}
 
 .btn:hover{
   transform:translateY(-5px) scale(1.015);
-  box-shadow:0 18px 35px rgba(0,0,0,.38);
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
 }
 
 .btn:active{
@@ -498,62 +385,53 @@ body{
   width:48px;
   height:48px;
   flex-shrink:0;
-  border-radius:15px;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
-  background:#14251b;
+  border-radius:15px;
+  background:#0757a5;
   color:white;
-  overflow:hidden;
+  font-size:22px;
 }
 
-.icon svg{
-  width:25px;
-  height:25px;
-  fill:currentColor;
-}
-
-.btn-text{
+.text{
   flex:1;
 }
 
-.btn-text b{
+.text b{
   display:block;
   font-size:16px;
-  font-weight:800;
 }
 
-.btn-text span{
+.text span{
   display:block;
   margin-top:3px;
   font-size:12px;
-  color:#747b75;
+  color:#737b80;
 }
 
 .arrow{
   font-size:28px;
-  color:#68716a;
-  transition:transform .2s ease;
+  color:#657078;
+  transition:.2s;
 }
 
 .btn:hover .arrow{
   transform:translateX(5px);
 }
 
-/* =====================================================
+/* =========================
    INFOS
-===================================================== */
+========================= */
 
-.section-title{
-  margin-top:28px;
-  margin-bottom:10px;
+.title{
+  margin-top:30px;
+  margin-bottom:11px;
+  color:#aac3d1;
   font-size:11px;
   letter-spacing:2px;
   text-transform:uppercase;
-  color:#b7c5bd;
-  animation:contentAppear .8s ease 5.2s both;
+  animation:fadeUp .8s ease 4.9s both;
 }
 
 .info{
@@ -563,16 +441,16 @@ body{
 }
 
 .card{
-  padding:17px;
-  border-radius:18px;
-  background:rgba(7,29,18,.72);
+  padding:18px;
+  border-radius:19px;
+  background:rgba(4,27,45,.7);
   border:1px solid rgba(255,255,255,.1);
-  backdrop-filter:blur(10px);
-  animation:contentAppear .8s ease 5.3s both;
+  backdrop-filter:blur(12px);
+  animation:fadeUp .8s ease 5s both;
 }
 
 .card:nth-child(2){
-  animation-delay:5.4s;
+  animation-delay:5.1s;
 }
 
 .card-icon{
@@ -585,398 +463,249 @@ body{
 }
 
 .card p{
-  color:#94a49a;
+  margin-top:5px;
+  color:#91a5b1;
   font-size:11px;
   line-height:1.4;
-  margin-top:4px;
 }
 
 footer{
   text-align:center;
   padding-top:30px;
-  color:#829188;
+  color:#8296a2;
   font-size:11px;
-  animation:contentAppear .8s ease 5.5s both;
+  animation:fadeUp .8s ease 5.2s both;
 }
 
-/* =====================================================
-   ANIMATIONS
-===================================================== */
-
-@keyframes logoIntro{
-  0%{
-    opacity:0;
-    transform:scale(.2) rotate(-30deg);
-  }
-
-  65%{
-    opacity:1;
-    transform:scale(1.08) rotate(5deg);
-  }
-
-  100%{
-    opacity:1;
-    transform:scale(1) rotate(0);
-  }
-}
-
-@keyframes logoFloat{
-  0%,100%{
-    transform:translateY(0);
-  }
-
-  50%{
-    transform:translateY(-8px);
-  }
-}
-
-@keyframes glowPulse{
-  0%,100%{
-    transform:scale(.85);
-    opacity:.5;
-  }
-
-  50%{
-    transform:scale(1.15);
-    opacity:1;
-  }
-}
-
-@keyframes textIntro{
-  from{
-    opacity:0;
-    transform:translateY(20px);
-  }
-
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-@keyframes introBall{
-  0%{
-    left:-50px;
-    transform:translateY(0) rotate(0);
-  }
-
-  45%{
-    left:48%;
-    transform:translateY(-130px) rotate(220deg);
-  }
-
-  70%{
-    left:72%;
-    transform:translateY(30px) rotate(360deg);
-  }
-
-  100%{
-    left:110%;
-    transform:translateY(-80px) rotate(600deg);
-  }
-}
-
-@keyframes introLine{
-  to{
-    left:100%;
-  }
-}
-
-@keyframes introDisappear{
-  0%{
-    opacity:1;
-    visibility:visible;
-  }
-
-  75%{
-    opacity:1;
-  }
-
-  100%{
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-  }
-}
-
-@keyframes contentAppear{
-  from{
-    opacity:0;
-    transform:translateY(25px);
-  }
-
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-/* =====================================================
+/* =========================
    MOBILE
-===================================================== */
+========================= */
 
-@media(max-width:380px){
+@media(max-width:400px){
 
-  .content{
+  .container{
     padding-left:14px;
     padding-right:14px;
   }
 
-  .header h1{
-    font-size:39px;
+  header h1{
+    font-size:43px;
   }
 
-  .header h1 span{
-    font-size:23px;
+  header h1 span{
+    font-size:24px;
   }
 
-  .club-logo{
+  .logo{
     width:90px;
     height:90px;
   }
-
-  .intro-logo{
-    width:125px;
-    height:125px;
-  }
-
-  .intro-text h1{
-    font-size:34px;
-  }
 }
-</style></head><body><!-- =====================================================
-     ÉCRAN D'OUVERTURE
-===================================================== --><div class="intro-screen">  <div class="intro-glow"></div>  <div class="intro-line one"></div>
-  <div class="intro-line two"></div>  <div class="intro-ball"></div><img
-class="intro-logo"
-src="670f76a8a5dd8_LogoTCMG.jpg"
-alt="Logo TCMG"
+</style>
+</head>
 
-«»
+<body>
 
-  <div class="intro-text">
-    <h1>TCMG</h1>
-    <p>Goussainville</p>
-  </div></div><!-- =====================================================
-     TERRAIN
-===================================================== --><div class="court-background">  <div class="tennis-court"><div class="court-line center-line"></div>
+<div class="background"></div>
+<div class="light one"></div>
+<div class="light two"></div>
 
-<div class="court-line service-left"></div>
-<div class="court-line service-right"></div>
+<!-- INTRO -->
 
-<div class="court-line baseline-top"></div>
-<div class="court-line baseline-bottom"></div>
+<div class="intro">
 
-<div class="court-line service-top"></div>
-<div class="court-line service-bottom"></div>
+  <div class="intro-ball"></div>
 
-<div class="net"></div>
+  <img src="670f76a8a5dd8_LogoTCMG.jpg" alt="Logo TCMG">
 
-  </div>  <div class="court-overlay"></div>  <div class="bouncing-ball"></div></div><!-- =====================================================
-     CONTENU
-===================================================== --><main class="content"><img
-class="club-logo"
-src="670f76a8a5dd8_LogoTCMG.jpg"
-alt="Logo TCMG Goussainville"
+  <h1>TCMG</h1>
+  <p>Goussainville</p>
 
-«»
+</div>
 
-  <header class="header"><small>Tennis Club</small>
+<!-- TERRAIN -->
 
-<h1>
-  TCMG
-  <span>Goussainville</span>
-</h1>
+<div class="court">
 
-<p>
-  Notre club, notre passion, notre communauté 🎾
-</p>
+  <div class="line center"></div>
 
-  </header>  <div class="intro-card"><strong>Bienvenue au TCMG 👋</strong>
+  <div class="line service1"></div>
+  <div class="line service2"></div>
 
-<p>
-  Retrouvez tous les liens utiles du club
-  et réservez facilement votre terrain.
-</p>
+  <div class="line base1"></div>
+  <div class="line base2"></div>
 
-  </div>  <div class="links"><!-- INSTAGRAM -->
+  <div class="line service3"></div>
+  <div class="line service4"></div>
 
-<a
-  class="btn"
-  href="https://www.instagram.com/tcm_goussainville"
-  target="_blank"
-  rel="noopener"
->
+  <div class="net"></div>
 
-  <div class="icon">
+</div>
 
-    <svg viewBox="0 0 24 24">
-      <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0-3-3 3 3 0 0 0 3-3zm5.25-3.25a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5z"/>
-    </svg>
+<!-- CONTENU -->
 
-  </div>
+<main class="container">
 
-  <div class="btn-text">
-    <b>Instagram</b>
-    <span>@tcm_goussainville</span>
-  </div>
+  <img
+    class="logo"
+    src="670f76a8a5dd8_LogoTCMG.jpg"
+    alt="Logo TCMG Goussainville"
+  >
 
-  <div class="arrow">›</div>
+  <header>
 
-</a>
+    <small>Tennis Club Municipal</small>
 
+    <h1>
+      TCMG
+      <span>Goussainville</span>
+    </h1>
 
-<!-- TIKTOK -->
+    <p>
+      Notre club · Notre passion · Notre communauté 🎾
+    </p>
 
-<a
-  class="btn"
-  href="https://www.tiktok.com/@tcm.goussainville"
-  target="_blank"
-  rel="noopener"
->
+  </header>
 
-  <div class="icon">
+  <div class="welcome">
 
-    <svg viewBox="0 0 24 24">
-      <path d="M16.6 3c.3 2.4 1.6 3.8 4 4v3.2c-1.5.1-2.8-.3-4-1v6.1c0 5-5.4 7.3-9 4.3-2.3-1.9-2.4-5.5-.3-7.6 1.2-1.2 2.7-1.7 4.3-1.5v3.3c-2.4-.8-3.9 1.9-2.2 3.4 1.2 1 3.9.4 3.9-1.8V3h3.3z"/>
-    </svg>
+    <strong>Bienvenue au TCMG 👋</strong>
+
+    <p>
+      Retrouvez tous les liens utiles du club,
+      nos réseaux et la réservation des terrains.
+    </p>
 
   </div>
 
-  <div class="btn-text">
-    <b>TikTok</b>
-    <span>@tcm.goussainville</span>
-  </div>
+  <div class="links">
 
-  <div class="arrow">›</div>
+    <a
+      class="btn"
+      href="https://www.instagram.com/tcm_goussainville"
+      target="_blank"
+    >
 
-</a>
+      <div class="icon">◎</div>
 
+      <div class="text">
+        <b>Instagram</b>
+        <span>@tcm_goussainville</span>
+      </div>
 
-<!-- FACEBOOK -->
+      <div class="arrow">›</div>
 
-<a
-  class="btn"
-  href="https://www.facebook.com/ftcmg/"
-  target="_blank"
-  rel="noopener"
->
+    </a>
 
-  <div class="icon">
+    <a
+      class="btn"
+      href="https://www.tiktok.com/@tcm.goussainville"
+      target="_blank"
+    >
 
-    <svg viewBox="0 0 24 24">
-      <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5h1.7V4.9c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4V11H8v3h2.6v8h2.9z"/>
-    </svg>
+      <div class="icon">♪</div>
 
-  </div>
+      <div class="text">
+        <b>TikTok</b>
+        <span>@tcm.goussainville</span>
+      </div>
 
-  <div class="btn-text">
-    <b>Facebook</b>
-    <span>TCMG Goussainville</span>
-  </div>
+      <div class="arrow">›</div>
 
-  <div class="arrow">›</div>
+    </a>
 
-</a>
+    <a
+      class="btn"
+      href="https://www.facebook.com/ftcmg/"
+      target="_blank"
+    >
 
+      <div class="icon">f</div>
 
-<!-- BOUTIQUE -->
+      <div class="text">
+        <b>Facebook</b>
+        <span>TCMG Goussainville</span>
+      </div>
 
-<a
-  class="btn"
-  href="https://www.trainingaddict-shop.com/categorie-produit/clubs-tcmg/"
-  target="_blank"
-  rel="noopener"
->
+      <div class="arrow">›</div>
 
-  <div class="icon">
+    </a>
 
-    <svg viewBox="0 0 24 24">
-      <path d="M7 4h10l2 4v12H5V8l2-4zm1.2 2-1 2h9.6l-1-2H8.2zM7 10v8h10v-8H7zm2 2h6v2H9v-2z"/>
-    </svg>
+    <a
+      class="btn"
+      href="https://www.trainingaddict-shop.com/categorie-produit/clubs-tcmg/"
+      target="_blank"
+    >
 
-  </div>
+      <div class="icon">🛍️</div>
 
-  <div class="btn-text">
-    <b>Boutique du club</b>
-    <span>Maillots & équipements</span>
-  </div>
+      <div class="text">
+        <b>Boutique du club</b>
+        <span>Maillots & équipements</span>
+      </div>
 
-  <div class="arrow">›</div>
+      <div class="arrow">›</div>
 
-</a>
+    </a>
 
+    <a
+      class="btn"
+      href="https://tenup.fft.fr/"
+      target="_blank"
+    >
 
-<!-- TEN'UP -->
+      <div class="icon">🎾</div>
 
-<a
-  class="btn"
-  href="https://tenup.fft.fr/"
-  target="_blank"
-  rel="noopener"
->
+      <div class="text">
+        <b>Réserver un terrain</b>
+        <span>Réserve ton court sur Ten'Up</span>
+      </div>
 
-  <div class="icon">
+      <div class="arrow">›</div>
 
-    <svg viewBox="0 0 24 24">
-      <circle
-        cx="12"
-        cy="12"
-        r="9"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      />
-
-      <path
-        d="M7 9c2.8 2 7.2 2 10 0M7 15c2.8-2 7.2-2 10 0"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-      />
-    </svg>
+    </a>
 
   </div>
 
-  <div class="btn-text">
-    <b>Réserver un terrain</b>
-    <span>Réserve ton court sur Ten'Up</span>
-  </div>
-
-  <div class="arrow">›</div>
-
-</a>
-
-  </div>  <div class="section-title">
+  <div class="title">
     Le club
-  </div>  <div class="info"><div class="card">
+  </div>
 
-  <div class="card-icon">🎾</div>
+  <div class="info">
 
-  <b>Pratique du tennis</b>
+    <div class="card">
 
-  <p>
-    Entraînements et séances
-    pour tous les niveaux.
-  </p>
+      <div class="card-icon">🎾</div>
 
-</div>
+      <b>École de tennis</b>
 
+      <p>
+        Des entraînements adaptés
+        à tous les niveaux.
+      </p>
 
-<div class="card">
+    </div>
 
-  <div class="card-icon">🏆</div>
+    <div class="card">
 
-  <b>Compétitions</b>
+      <div class="card-icon">🏆</div>
 
-  <p>
-    Tournois, matchs et
-    événements du club.
-  </p>
+      <b>Compétition</b>
 
-</div>
+      <p>
+        Tournois, matchs et
+        événements du club.
+      </p>
 
-  </div>  <footer>
+    </div>
+
+  </div>
+
+  <footer>
     TCMG Goussainville · Tennis Club Municipal
-  </footer></main></body>
+  </footer>
+
+</main>
+
+</body>
 </html>
